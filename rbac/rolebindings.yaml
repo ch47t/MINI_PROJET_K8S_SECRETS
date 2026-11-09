@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: backend-secret-binding
+  namespace: backend
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: secret-reader-backend
+subjects:
+- kind: ServiceAccount
+  name: sa-backend
+  namespace: backend
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: database-secret-binding
+  namespace: database
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: secret-reader-database
+subjects:
+- kind: ServiceAccount
+  name: sa-database
+  namespace: database

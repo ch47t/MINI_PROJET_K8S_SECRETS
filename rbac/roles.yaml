@@ -1,0 +1,26 @@
+# Le backend peut lire UNIQUEMENT ses deux secrets
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-reader-backend
+  namespace: backend
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["db-credentials", "jwt-key", "external-api-key", "db-dynamic-credentials"]
+  verbs: ["get"]
+---
+# La base de données peut lire uniquement ses credentials
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-reader-database
+  namespace: database
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["db-credentials"]
+  verbs: ["get"]
+---
+# Le frontend n'a AUCUN accès aux secrets
+# (pas de Role créé intentionnellement)
