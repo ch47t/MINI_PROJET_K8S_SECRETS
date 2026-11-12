@@ -12,6 +12,8 @@ et de courte durée.*
 
 ## Architecture
 
+![Architecture](archit.png "Architecture")
+
 ```text
         JWT de ServiceAccount                  écrit des Secrets
 Vault  ────────────────────►  ESO (external-secrets)  ─────────────────┐
