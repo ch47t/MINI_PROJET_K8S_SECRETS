@@ -12,18 +12,7 @@ et de courte durée.*
 
 ## Architecture
 
-```text
-        JWT de ServiceAccount                  écrit des Secrets
-Vault  ────────────────────►  ESO (external-secrets)  ─────────────────┐
-  │                                                                     v
-  │ KV v2 : secret/…                                        etcd (chiffrement aescbc)
-  │ moteur database : creds à la demande                                  │
-  v                                                                     v
-PostgreSQL  ◄──── 5432 ────  API backend  ◄──── volume monté 0400 ──────┘
-                                   ^
-                                   │ 8080
-                              frontend (aucun secret)
-```
+![Architecture](archit.png "Architecture")
 
 Vault ne parle jamais directement aux applications : c'est ESO qui porte la relation, et le Pod
 ne lit qu'un fichier monté, réécrit à chaque rotation.
